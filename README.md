@@ -1,2 +1,4 @@
-# craft-plugin-images
-Adds a small collection of twig extensions that help manage image output
+# Images
+## A Yello Studio Craft Plugin
+
+Images adds a small collection of Twig extenstions to help manage reoccuring image queryies.
