@@ -1,5 +1,14 @@
 [
     {
+        "version": "0.0.2",
+        "downloadUrl": "https://github.com/marknotton/craft-plugin-images/archive/master.zip",
+        "date": "2016-07-25T10:00:00-08:00",
+        "notes": [
+            "# Big Stuff",
+            "[Added] Test 2",
+        ]
+    },
+    {
         "version": "0.0.1",
         "downloadUrl": "https://github.com/marknotton/craft-plugin-images/archive/master.zip",
         "date": "2016-07-25T10:00:00-08:00",

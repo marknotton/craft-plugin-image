@@ -7,7 +7,7 @@ class ImagesPlugin extends BasePlugin {
   }
 
   public function getVersion() {
-    return '1.2';
+    return '0.0.2';
   }
 
   public function getDeveloper() {
@@ -102,6 +102,10 @@ class ImagesPlugin extends BasePlugin {
         ImagesPlugin::log('Could not save the Featured Image field.', LogLevel::Warning);
       }
     }
+  }
+
+  public function getReleaseFeedUrl() {
+    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-images/master/releases.json';
   }
 
 }
