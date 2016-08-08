@@ -105,7 +105,7 @@ class ImagesPlugin extends BasePlugin {
   }
 
   public function getReleaseFeedUrl() {
-    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-images/master/releases.json';
+    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-images/master/images/releases.json';
   }
 
 }
