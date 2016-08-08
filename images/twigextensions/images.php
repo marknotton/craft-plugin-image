@@ -18,36 +18,34 @@ class images extends \Twig_Extension {
     );
   }
 
-  // When passing a fieldhandle and a transformType that is also a string, the fieldhandle should be passed first.
-  // When using the image filter on a entry, you must define the feildtype handle (normally the assets fieldtype handle)
+  // When using the image filter on a entry, you must define the field type handle.
   // {{ entry|images('fieldHandle', transformType )}}
   // {{ entry|images('fieldHandle', transformType, { settings... })}}
   // {{ entry|images('fieldHandle', { settings... })}}
 
-  // When using the images filter directly on an image fieldtype, you do not need to pass the feidltype handle
-  // {{ entry.gallery|images({ settings... })}}
-  // {{ entry.gallery|images('transformType')}}
-  // {{ entry.gallery|images(transformType, { settings... })}}
+  // When using the images filter directly on an image field type, you do not need to pass the field type handle
+  // {{ entry.fieldHandle|images({ settings... })}}
+  // {{ entry.fieldHandle|images('transformType')}}
+  // {{ entry.fieldHandle|images(transformType, { settings... })}}
 
-  // {{ quick.content('gallery', 'about')|images({
-  //   transform : thumb,    {String | Array} - Define an transform type
-  //   class     : 'pic-%i', {String} - Define a class for the image elemnet. Use '%i' if you want the numbered items
-  //   id        : 'id-%i',  {String} - Define an id for the image elemnet. Use '%i' if you want the numbered items
-  //   data      : ['img', %id],{Array} - Define an data attribute for the image elemnet. First array element will be the data attribute name. The second will be the value. Use '%id' if you want the asset ID
-  //   element   : 'image',  {String} -  Define what element tags the image will use. "img" and "image" great a real image. Anything else will define a background iamge
-  //   size      : false,    {Bool}   - If true, the images dimensions will be added. If Width or Heigh are defined, the define options will overwrite the real this
-  //   width     : '100%',   {String | Number} - Set the height.
-  //   height    : 555,      {String | Number} - Set the height.
-  //   url       : true,     {Bool}   - Return a url or array of urls
-  //   shuffle   : true,     {Bool}   - Alias of order:'RAND()';
-  //   order     : 'RAND()', {String} - https://craftcms.com/docs/templating/craft.assets#order
-  //   limit     : 4,        {Number} - Limit number of images
-  //   svg       : true,     {Bool}   - If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
-  //   wrap      : ['li div', 'pic-%i'], {String | Array} - Attributes for the wrapper plugin
-  //   fallback  : true,     {Bool | String} - Default is true. If true or a string is found look for a default image should the image file not be found.
-  //                         true : 'default-[transform type if string].*' or 'default-image.*'. If the transform type is defined as a string, that will be useed as a suffex instead, otherwise 'image' will be used
-  //                         string : 'default-[string].*'. Fallback will look for all main image files types.
+  // {{ entry.fieldHandle|images({
+  //   transform : thumb,                {String | Array}  - Define an transform type
+  //   class     : 'pic-%i',             {String}          - Define a class for the image elemnet. Use '%i' if you want the numbered items
+  //   id        : 'id-%i',              {String}          - Define an id for the image elemnet. Use '%i' if you want the numbered items
+  //   data      : ['img', %id],         {Array}           - Define an data attribute for the image elemnet. First array element will be the data attribute name. The second will be the value. Use '%id' if you want the asset ID
+  //   element   : 'image',              {String}          - Define what element tags the image will use. "img" and "image" great a real image. Anything else will define a background iamge
+  //   size      : false,                {Bool}            - If true, the images dimensions will be added. If Width or Heigh are defined, the define options will overwrite the real this
+  //   width     : '100%',               {String | Number} - Set the height.
+  //   height    : 555,                  {String | Number} - Set the height.
+  //   url       : true,                 {Bool}            - Return a url or array of urls
+  //   shuffle   : true,                 {Bool}            - Alias of order:'RAND()';
+  //   order     : 'RAND()',             {String}          - https://craftcms.com/docs/templating/craft.assets#order
+  //   limit     : 4,                    {Number}          - Limit number of images
+  //   svg       : true,                 {Bool}            - If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
+  //   wrap      : ['li div', 'pic-%i'], {String | Array}  - Requires the wrapper plugin - https://github.com/marknotton/craft-plugin-wrapper
+  //   fallback  : true,                 {Bool | String}   - https://github.com/marknotton/craft-plugin-images
   // }) }}
+
   public function images() {
 
     // Atleast one symbol sting arugment should be passed

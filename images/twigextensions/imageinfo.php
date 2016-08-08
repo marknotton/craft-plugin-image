@@ -86,7 +86,7 @@ class images extends \Twig_Extension {
       // Create new image info array with dimensions, file format, filesize and orientation.
       $newImageInfo['width']       = $width;
       $newImageInfo['height']      = $height;
-      $newImageInfo['format']        = $extension;
+      $newImageInfo['format']      = $extension;
       $newImageInfo['filesize']    = $filesize;
       $newImageInfo['orientation'] = $orientation;
 
@@ -95,21 +95,11 @@ class images extends \Twig_Extension {
     } else {
       $newImageInfo['width']       = "Image width not found.";
       $newImageInfo['height']      = "Image height not found.";
-      $newImageInfo['format']        = "Image format not found.";
+      $newImageInfo['format']      = "Image format not found.";
       $newImageInfo['filesize']    = "Image filesize not found.";
       $newImageInfo['orientation'] = "Image orientation not found.";
 
       return $newImageInfo;
-    }
-  }
-
-  // {{ 'logo.png')|ori }} or // {{ 'logo.png')|orientation }}
-  public function orientation() {
-    $orientation = $this->imageinfo(func_get_arg(0))['orientation'];
-    if (!empty(array_slice(func_get_args(), 1))) {
-      return "data-orientation='".$orientation."'";
-    } else {
-      return $orientation;
     }
   }
 
@@ -131,6 +121,16 @@ class images extends \Twig_Extension {
   // {{ 'logo.png')|filesize }}
   public function filesize() {
     return $this->imageinfo(func_get_arg(0))['filesize'];
+  }
+
+  // {{ 'logo.png')|ori }} or // {{ 'logo.png')|orientation }}
+  public function orientation() {
+    $orientation = $this->imageinfo(func_get_arg(0))['orientation'];
+    if (!empty(array_slice(func_get_args(), 1))) {
+      return "data-orientation='".$orientation."'";
+    } else {
+      return $orientation;
+    }
   }
 
   public $imageDirectory = null;
