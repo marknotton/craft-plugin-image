@@ -8,7 +8,8 @@ When this plugin is installed, an assets field type called "featured image" will
 ## Images
 
 This filter will query an asset field type and list out all the available image assets as per the settings.
-> If you just want to get one single image, you can use "image" instead of "images".
+
+If you just want to get one single image, you can use "image" instead of "images". This essentially sets the 'url' option to 'true'.
 
 ### Usage:
 When using the image filter on a entry, you must define the field type handle.
@@ -32,11 +33,11 @@ If the transform type is passed as a string, this will use a predefined [image t
 | class     | 'pic-%i'               | String           | Define a class for the image element. Use '%i' if you want the numbered items
 | id        | 'id-%i'                | String           | Define an id for the image element. Use '%i' if you want the numbered items
 | data      | ['img', %id]           | Array            | Define an data attribute for the image element. First array element will be the data attribute name. The second will be the value. Use '%id' if you want the asset ID
-| element   | 'image'                | String           | Define what element tags the image will use. "img" and "image" great a real image. Anything else will define a background iamge
+| element   | 'image'                | String           | Define what element tags the image will use. "img" and "image" create a <img> tag. Anything else will define a background image as part of a standard tag.
 | size      | false                  | Bool             | If true, the images dimensions will be added. If Width or Heigh are defined, the define options will overwrite the real this
 | width     | '100%'                 | String or Number | Set the width.
 | height    | 555                    | String or Number | Set the height.
-| url       | true                   | Bool             | Return a url or array of urls
+| url       | false                  | Bool             | Return a url or array of urls
 | shuffle   | true                   | Bool             | Alias of order:'RAND()';
 | order     | 'RAND()'               | String           | https://craftcms.com/docs/templating/craft.assets#order
 | limit     | 4                      | Number           | Limit number of images
@@ -44,11 +45,71 @@ If the transform type is passed as a string, this will use a predefined [image t
 | wrap      | ['li div', 'pic-%i']   | String or Array  | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper)
 | fallback  | true                   | Bool or String   | See Below
 **Fallback option:**
-If true and a fallback image is required, the field handle will be used to look for an image in the image directory that is prefixed with *'default-'.* Example, if the field handle was '*featured*' this image will be used: '*default-featured.svg*'. All image extensions will be searched in this order: svg, png, jpg, gif. First file to exists wins.
+If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory that is prefixed with *'default-'.* Example, if the field handle was '*featured*' this image will be used: '*default-featured.svg*'. All image extensions will be searched in this order: svg, png, jpg, gif. First file to exists wins.
 
-If a string is passed, that string will be used instead of the field handle.
+If a **string** is passed, that string will be used instead of the field handle.
 
-False, will not return any fallback and not load any image at all.
+**False**, will not return any fallback and not load any image at all.
+
+### Examples
+**Basic Usage:**
+```
+{{ entry.gallery|images }}
+```
+**Basic Output:**
+```
+<img src="/assets/uploads/image1.jpg" alt="Image1">
+<img src="/assets/uploads/image2.jpg" alt="Image2">
+<img src="/assets/uploads/image3.jpg" alt="Image3">
+<img src="/assets/uploads/image4.jpg" alt="Image4">
+```
+---
+
+**Basic Single Image Usage:**
+```
+{{ entry.gallery|image }}
+```
+**Basic Single Image Output:**
+```
+/assets/uploads/image1.jpg
+```
+---
+
+**Advance Usage:**
+```
+<ul>
+{{ entry.gallery|images(thumb, {
+  id : 'id-%i',
+  element : 'gallery-image',
+  size : true,
+  shuffle: true,
+  limit : 3,
+  wrap : ['li', 'pic-%i']
+}) }}
+</ul>
+```
+**Advance Output:**
+```
+<ul>
+  <li class="pic-1">
+    <gallery-image id="id-1" width="300" height="300" style="background-image:url(/assets/uploads/_300x300_crop_center-center_80/image1.jpg)"></gallery-image>
+  </li>
+  <li class="pic-2">
+    <gallery-image id="id-2" width="300" height="300" style="background-image:url(/assets/uploads/_300x300_crop_center-center_80/image3.jpg)"></gallery-image>
+  </li>
+  <li class="pic-3">
+    <gallery-image id="id-3" width="300" height="300" style="background-image:url(/assets/images/default-thumb.jpg)"></gallery-image>
+  </li>
+</ul>
+```
+
+---
+---
+
+
+
+
+
 
 ## Image information
 
