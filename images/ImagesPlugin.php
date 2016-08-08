@@ -18,11 +18,21 @@ class ImagesPlugin extends BasePlugin {
     return 'http://yellostudio.co.uk';
   }
 
+  public function getDocumentationUrl() {
+    return 'https://github.com/marknotton/craft-plugin-images';
+  }
+
+  public function getReleaseFeedUrl() {
+    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-images/master/images/releases.json';
+  }
+
   public function addTwigExtension() {
     Craft::import('plugins.images.twigextensions.images');
+    Craft::import('plugins.images.twigextensions.imageinfo');
 
     return array(
-      new images()
+      new images(),
+      new imageinfo()
     );
   }
 
@@ -104,8 +114,6 @@ class ImagesPlugin extends BasePlugin {
     }
   }
 
-  public function getReleaseFeedUrl() {
-    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-images/master/images/releases.json';
-  }
+
 
 }
