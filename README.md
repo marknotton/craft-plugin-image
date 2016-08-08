@@ -29,18 +29,18 @@ If the transform type is passed as a string, this will use a predefined [image t
 ### Settings:
 | Option    | Example                 | Type             | Description
  ---------- | ----------------------- | ---------------- | ------------------
-| transform | thumb                | String or Array  | Define an transform type
-| class     | 'pic-%i'               | String           | Define a class for the image element. Use '%i' if you want the numbered items
-| id        | 'id-%i'                | String           | Define an id for the image element. Use '%i' if you want the numbered items
-| data      | ['img', %id]           | Array            | Define an data attribute for the image element. First array element will be the data attribute name. The second will be the value. Use '%id' if you want the asset ID
-| element   | 'image'                | String           | Define what element tags the image will use. "img" and "image" create a <img> tag. Anything else will define a background image as part of a standard tag.
-| size      | false                  | Bool             | If true, the images dimensions will be added. If Width or Heigh are defined, the define options will overwrite the real this
+| transform | thumb                  | String or Array  | Define an transform type.
+| class     | 'pic-%i'               | String           | Define a class for the image element. Use '%i' if you want the items numbered.
+| id        | 'id-%i'                | String           | Define an id for the image element. Use '%i' if you want the items numbered.
+| data      | ['img', %id]           | Array            | Define an data attribute for the image element. First array element will be the data attribute name. The second will be the value. Use '%id' if you want the asset ID.
+| element   | 'image'                | String           | Define what element tags the image will use. "img" and "image" create a <img> tag. Anything else will define custom element tag along with a CSS background image.
+| size      | false                  | Bool             | If true, the images actual dimensions will be added. However if the below Width or Height options are defined, the they will overwrite these.
 | width     | '100%'                 | String or Number | Set the width.
 | height    | 555                    | String or Number | Set the height.
-| url       | false                  | Bool             | Return a url or array of urls
-| shuffle   | true                   | Bool             | Alias of order:'RAND()';
-| order     | 'RAND()'               | String           | https://craftcms.com/docs/templating/craft.assets#order
-| limit     | 4                      | Number           | Limit number of images
+| url       | false                  | Bool             | Return a url or array of urls.
+| shuffle   | false                  | Bool             | Alias of order:'RAND()';
+| order     | 'RAND()'               | String           | Order overide shuffle if true. https://craftcms.com/docs/templating/craft.assets#order
+| limit     | 4                      | Number           | Limits number of images returned.
 | svg       | true                   | Bool             | If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
 | wrap      | ['li div', 'pic-%i']   | String or Array  | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper)
 | fallback  | true                   | Bool or String   | See Below
@@ -102,14 +102,6 @@ If a **string** is passed, that string will be used instead of the field handle.
   </li>
 </ul>
 ```
-
----
----
-
-
-
-
-
 
 ## Image information
 
