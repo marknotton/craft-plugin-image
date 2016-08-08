@@ -23,6 +23,7 @@ When using the images filter directly on an image field type, you do not need to
 {{ entry.gallery|images('transformType')}}
 {{ entry.gallery|images(transformType, { settings... })}}
 ```
+If the transform type is passed as a string, this will use a predefined [image transform](https://craftcms.com/docs/image-transforms). However, you can define an array of transforms settings directly too.
 
 ### Settings:
 | Option    | Example                 | Type             | Description
