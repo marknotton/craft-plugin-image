@@ -113,7 +113,7 @@ If the transform type is passed as a string, this will use a predefined [image t
 
 You can grab useful information about an image file too.
 
-####Usage:
+####Usage
 Image files being queried must be local in order for the data to be retrieved. The current working directory is automatically used if one isn't found. So no need for absolute paths.
 
 Also, if you have defined your image directory in your [environment variables](https://craftcms.com/docs/multi-environment-configs) config file; this will be queried first.
