@@ -1,3 +1,5 @@
+<img src="http://i.imgur.com/hljNjeV.png" alt="Images" align="right" height="60" />
+
 # Images *for Craft CMS*
 
 Images adds a small collection of filters to help manage reoccurring image queries.
@@ -27,7 +29,7 @@ When using the images filter directly on an image field type, you do not need to
 If the transform type is passed as a string, this will use a predefined [image transform](https://craftcms.com/docs/image-transforms). However, you can define an array of transforms settings directly too.
 
 ### Settings:
-| Option    | Example               | Default | Type             | Description
+| Options   | Example               | Default | Type             | Description
  ---------- | --------------------- | ------- | ---------------- | ------------------
 | transform | thumb                 |         | String, Array    | Define an transform type.
 | class     | 'pic-%i'              |         | String           | Define a class for the image element. Use '%i' if you want the items numbered.
