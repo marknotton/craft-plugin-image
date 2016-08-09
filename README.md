@@ -29,21 +29,21 @@ If the transform type is passed as a string, this will use a predefined [image t
 ### Settings:
 | Option    | Example               | Default | Type             | Description
  ---------- | --------------------- | ------- | ---------------- | ------------------
-| transform | thumb                 | null    | String or Array  | Define an transform type.
-| class     | 'pic-%i'              | null    | String           | Define a class for the image element. Use '%i' if you want the items numbered.
-| id        | 'id-%i'               | null    | String           | Define an id for the image element. Use '%i' if you want the items numbered.
-| data      | ['img', %id]          | null    | Array            | Define a data attribute for the image element. First array element will have the data attribute name. The second will be the value. Use '%id' if you want the asset ID.
+| transform | thumb                 |         | String, Array    | Define an transform type.
+| class     | 'pic-%i'              |         | String           | Define a class for the image element. Use '%i' if you want the items numbered.
+| id        | 'id-%i'               |         | String           | Define an id for the image element. Use '%i' if you want the items numbered.
+| data      | ['img', %id]          |         | Array            | Define a data attribute for the image element. First array element will have the data attribute name. The second will be the value. Use '%id' if you want the asset ID.
 | element   | 'image'               | 'img'   | String           | Define what element tag the image will use. "img" and "image" create a <img> tag. Anything else will define a standard tag with the image as part of a background image.
 | size      | false                 | false   | Bool             | If true, the images actual dimensions will be added. However if the below Width or Height options are defined, the they will overwrite these.
-| width     | '100%'                | null    | String or Number | Set the width.
-| height    | 555                   | null    | String or Number | Set the height.
+| width     | '100%'                |         | String, Number   | Set the width.
+| height    | 555                   |         | String, Number   | Set the height.
 | url       | false                 | false   | Bool             | Return a url or array of urls. By default, this is **true** when using the "image" filter.
 | shuffle   | false                 | false   | Bool             | Alias of order:'RAND()';
-| order     | 'RAND()'              | null    | String           | Order options will override shuffle if it is set to **true**. [More information on **Order**](https://craftcms.com/docs/templating/craft.assets#order)
-| limit     | 4                     | null    | Number           | Limits number of images returned.
+| order     | 'RAND()'              |         | String           | Order options will override shuffle if it is set to **true**. [More information on **Order**](https://craftcms.com/docs/templating/craft.assets#order)
+| limit     | 4                     |         | Number           | Limits number of images returned.
 | svg       | true                  | true    | Bool             | If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
-| wrap      | ['li div', 'pic-%i']  | null    | String or Array  | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consist of up to 3 values in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
-| fallback  | true                  | true    | Bool or String   | See Below
+| wrap      | ['li div', 'pic-%i']  |         | String, Array    | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consist of up to 3 values in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
+| fallback  | true                  | true    | Bool, String     | See Below
 **Fallback option:**
 If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory that is prefixed with *'default-'.* Example, if the field handle was '*featured*' this image will be used: '*default-featured.svg*'. All image extensions will be searched in this order: svg, png, jpg, gif. First file to exists wins.
 
