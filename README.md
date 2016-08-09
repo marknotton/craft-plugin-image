@@ -5,6 +5,7 @@
 Images adds a small collection of filters to help manage reoccurring image queries.
 
 ## After installation
+
 When this plugin is installed, an assets field type called "featured image" will be added to the default field types.  
 ----
 
@@ -47,14 +48,20 @@ If the transform type is passed as a string, this will use a predefined [image t
 | svg       | true                  | true    | Bool             | If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
 | wrap      | ['li div', 'pic-%i']  |         | String, Array    | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consist of up to 3 values in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
 | fallback  | true                  | true    | Bool, String     | See Below
-**Fallback option:**
-If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory that is prefixed with *'default-'.* Example, if the field handle was '*featured*' this image will be used: '*default-featured.svg*'. All image extensions will be searched in this order: svg, png, jpg, gif. First file to exists wins.
 
-If a **string** is passed, that string will be used instead of the field handle.
+> **Fallback:**
+> If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory
+> that is prefixed with *'default-'.* Example, if the field handle was
+> '*featured*' this image will be used: '*default-featured.svg*'. All
+> image extensions will be searched in this order: svg, png, jpg, gif.
+> First file to exists wins.
+>
+> If a **string** is passed, that string will be used instead of the
+> field handle.
+>
+> **False**, will not return any fallback and not load any image at all.
 
-**False**, will not return any fallback and not load any image at all.
-
-#### Examples
+### Examples
 #### Basic Usage:**
 ```
 {{ entry.gallery|images }}
