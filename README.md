@@ -7,8 +7,6 @@ Images adds a small collection of filters to help manage reoccurring image queri
 ## After installation
 When this plugin is installed, an assets field type called "featured image" will be added to the default field types.
 
-----
-
 ## Images
 
 This filter will query an asset field type and list out all the available image assets as per the settings.
@@ -62,7 +60,7 @@ If the transform type is passed as a string, this will use a predefined [image t
 > **False**, will not return any fallback and not load any image at all.
 
 ### Examples
-#### Basic Usage:**
+#### Basic Usage
 ```
 {{ entry.gallery|images }}
 ```
@@ -73,7 +71,6 @@ If the transform type is passed as a string, this will use a predefined [image t
 <img src="/assets/uploads/image3.jpg" alt="Image3">
 <img src="/assets/uploads/image4.jpg" alt="Image4">
 ```
----
 
 #### Basic Single Image Usage
 ```
@@ -83,7 +80,6 @@ If the transform type is passed as a string, this will use a predefined [image t
 ```
 /assets/uploads/image1.jpg
 ```
----
 
 ####Advance Usage
 ```
@@ -141,7 +137,7 @@ Also, if you have defined your image directory in your [environment variables](h
 {{ ('logo.png')|orientation }}
 {{ ('logo.png')|ori }}
 ```
-----
+
 ##TODO:
 
 - Allow the customisation of the user's environment variables naming convention.
