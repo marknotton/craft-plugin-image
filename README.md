@@ -39,10 +39,10 @@ If the transform type is passed as a string, this will use a predefined [image t
 | height    | 555                    | String or Number | Set the height.
 | url       | false                  | Bool             | Return a url or array of urls.
 | shuffle   | false                  | Bool             | Alias of order:'RAND()';
-| order     | 'RAND()'               | String           | Order overide shuffle if true. https://craftcms.com/docs/templating/craft.assets#order
+| order     | 'RAND()'               | String           | Order options will override shuffle if it is set to **true**. [More information on **Order**](https://craftcms.com/docs/templating/craft.assets#order)
 | limit     | 4                      | Number           | Limits number of images returned.
 | svg       | true                   | Bool             | If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
-| wrap      | ['li div', 'pic-%i']   | String or Array  | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper)
+| wrap      | ['li div', 'pic-%i']   | String or Array  | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consister of upto 3 value in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
 | fallback  | true                   | Bool or String   | See Below
 **Fallback option:**
 If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory that is prefixed with *'default-'.* Example, if the field handle was '*featured*' this image will be used: '*default-featured.svg*'. All image extensions will be searched in this order: svg, png, jpg, gif. First file to exists wins.
