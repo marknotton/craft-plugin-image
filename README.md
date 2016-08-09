@@ -1,11 +1,12 @@
-<img src="http://i.imgur.com/hljNjeV.png" alt="Images" align="right" height="60" />
+<img src="http://i.imgur.com/hljNjeV.png" alt="Images" align="left" height="60" />
 
 # Images *for Craft CMS*
 
 Images adds a small collection of filters to help manage reoccurring image queries.
 
-### After installation
+## After installation
 When this plugin is installed, an assets field type called "featured image" will be added to the default field types.  
+----
 
 ## Images
 
@@ -13,7 +14,7 @@ This filter will query an asset field type and list out all the available image 
 
 If you just want to get one single image, you can use "image" instead of "images". This essentially sets the 'url' option to 'true'.
 
-### Usage:
+#### Usage
 When using the image filter on a entry, you must define the field type handle.
 ```
 {{ entry|images('fieldHandle', transformType )}}
@@ -28,7 +29,7 @@ When using the images filter directly on an image field type, you do not need to
 ```
 If the transform type is passed as a string, this will use a predefined [image transform](https://craftcms.com/docs/image-transforms). However, you can define an array of transforms settings directly too.
 
-### Settings:
+#### Settings
 | Options   | Example               | Default | Type             | Description
  ---------- | --------------------- | ------- | ---------------- | ------------------
 | transform | thumb                 |         | String, Array    | Define an transform type.
@@ -53,12 +54,12 @@ If a **string** is passed, that string will be used instead of the field handle.
 
 **False**, will not return any fallback and not load any image at all.
 
-### Examples
-**Basic Usage:**
+#### Examples
+#### Basic Usage:**
 ```
 {{ entry.gallery|images }}
 ```
-**Basic Output:**
+#### Basic Output
 ```
 <img src="/assets/uploads/image1.jpg" alt="Image1">
 <img src="/assets/uploads/image2.jpg" alt="Image2">
@@ -67,17 +68,17 @@ If a **string** is passed, that string will be used instead of the field handle.
 ```
 ---
 
-**Basic Single Image Usage:**
+#### Basic Single Image Usage
 ```
 {{ entry.gallery|image }}
 ```
-**Basic Single Image Output:**
+#### Basic Single Image Output
 ```
 /assets/uploads/image1.jpg
 ```
 ---
 
-**Advance Usage:**
+####Advance Usage
 ```
 <ul>
 {{ entry.gallery|images(thumb, {
@@ -90,7 +91,7 @@ If a **string** is passed, that string will be used instead of the field handle.
 }) }}
 </ul>
 ```
-**Advance Output:**
+####Advance Output
 ```
 <ul>
   <li class="pic-1">
@@ -104,12 +105,12 @@ If a **string** is passed, that string will be used instead of the field handle.
   </li>
 </ul>
 ```
-
+----
 ## Image information
 
 You can grab useful information about an image file too.
 
-###Usage:
+####Usage:
 Image files being queried must be local in order for the data to be retrieved. The current working directory is automatically used if one isn't found. So no need for absolute paths.
 
 Also, if you have defined your image directory in your [environment variables](https://craftcms.com/docs/multi-environment-configs) config file; this will be queried first.
@@ -133,7 +134,7 @@ Also, if you have defined your image directory in your [environment variables](h
 {{ ('logo.png')|orientation }}
 {{ ('logo.png')|ori }}
 ```
-
+----
 ##TODO:
 
 - Allow the customisation of the user's environment variables naming convention.
