@@ -5,8 +5,8 @@
 Images adds a small collection of filters to help manage reoccurring image queries.
 
 ## After installation
+When this plugin is installed, an assets field type called "featured image" will be added to the default field types.
 
-When this plugin is installed, an assets field type called "featured image" will be added to the default field types.  
 ----
 
 ## Images
