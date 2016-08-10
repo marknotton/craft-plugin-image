@@ -4,7 +4,7 @@ namespace Craft;
 use Twig_Extension;
 use Twig_Filter_Method;
 
-class images extends \Twig_Extension {
+class imageinfo extends \Twig_Extension {
 
   public function getName() {
     return Craft::t('Image Information');

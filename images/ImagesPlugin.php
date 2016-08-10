@@ -7,7 +7,15 @@ class ImagesPlugin extends BasePlugin {
   }
 
   public function getVersion() {
-    return '0.0.2';
+    return '0.1';
+  }
+
+  public function getSchemaVersion() {
+    return '0.1';
+  }
+
+  public function getDescription() {
+    return 'Images adds a small collection of filters to help manage reoccurring image queries.';
   }
 
   public function getDeveloper() {
@@ -113,7 +121,4 @@ class ImagesPlugin extends BasePlugin {
       }
     }
   }
-
-
-
 }
