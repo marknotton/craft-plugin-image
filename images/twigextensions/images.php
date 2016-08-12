@@ -78,7 +78,7 @@ class images extends \Twig_Extension {
     } else if (isset($settings['order'])) {
       $order = $settings['order'];
     } else {
-      $order = null;
+      $order = 'sortOrder';
     }
 
     // Set the image variable dependant on the type of element that is being filtered

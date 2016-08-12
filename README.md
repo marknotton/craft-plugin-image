@@ -29,23 +29,26 @@ When using the images filter directly on an image field type, you do not need to
 If the transform type is passed as a string, this will use a predefined [image transform](https://craftcms.com/docs/image-transforms). However, you can define an array of transforms settings directly too.
 
 #### Settings
-| Options   | Example               | Default | Type             | Description
- ---------- | --------------------- | ------- | ---------------- | ------------------
-| transform | thumb                 |         | String, Array    | Define an transform type.
-| class     | 'pic-%i'              |         | String           | Define a class for the image element. Use '%i' if you want the items numbered.
-| id        | 'id-%i'               |         | String           | Define an id for the image element. Use '%i' if you want the items numbered.
-| data      | ['img', %id]          |         | Array            | Define a data attribute for the image element. First array element will have the data attribute name. The second will be the value. Use '%id' if you want the asset ID.
-| element   | 'image'               | 'img'   | String           | Define what element tag the image will use. "img" and "image" create a <img> tag. Anything else will define a standard tag with the image as part of a background image.
-| size      | false                 | false   | Bool             | If true, the images actual dimensions will be added. However if the below Width or Height options are defined, the they will overwrite these.
-| width     | '100%'                |         | String, Number   | Set the width.
-| height    | 555                   |         | String, Number   | Set the height.
-| url       | false                 | false   | Bool             | Return a url or array of urls. By default, this is **true** when using the "image" filter.
-| shuffle   | false                 | false   | Bool             | Alias of order:'RAND()';
-| order     | 'RAND()'              |         | String           | Order options will override shuffle if it is set to **true**. [More information on **Order**](https://craftcms.com/docs/templating/craft.assets#order)
-| limit     | 4                     |         | Number           | Limits number of images returned.
-| svg       | true                  | true    | Bool             | If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
-| wrap      | ['li div', 'pic-%i']  |         | String, Array    | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consist of up to 3 values in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
-| fallback  | true                  | true    | Bool, String     | See Below
+| Options   | Example               | Default     | Type             | Description
+ ---------- | --------------------- | ----------- | ---------------- | ------------------
+| transform | thumb                 |             | String, Array    | Define an transform type.
+| class     | 'pic-%i'              |             | String           | Define a class for the image element. Use '%i' if you want the items numbered.
+| id        | 'id-%i'               |             | String           | Define an id for the image element. Use '%i' if you want the items numbered.
+| data      | ['img', %id]          |             | Array            | Define a data attribute for the image element. First array element will have the data attribute name. The second will be the value. Use '%id' if you want the asset ID.
+| element   | 'image'               | 'img'       | String           | Define what element tag the image will use. "img" and "image" create a ```html <img>``` tag. Anything else will define a standard tag with the image as part of a background image.
+| size      | false                 | false       | Bool             | If true, the images actual dimensions will be added. However if the below Width or Height options are defined, the they will overwrite these.
+| width     | '100%'                |             | String, Number   | Set the width.
+| height    | 555                   |             | String, Number   | Set the height.
+| url       | false                 | false       | Bool             | Return a url or array of urls. By default, this is **true** when using the "image" filter.
+| shuffle   | false                 | false       | Bool             | Alias of order: ```'RAND()'```;
+| order     | 'RAND()'              | 'sortOrder' | String           | Possible values include ```'title'```, ```'id'```, ```'sourceId'```, ```'folderId'```, ```'filename'```, ```'kind'```, ```'width'```, ```'height'```, ```'size'```, ```'dateCreated'```, ```'dateUpdated'```, ```'sortOrder'```. If you want the entries to be sorted in descending order, add “desc” after the property name (ex: 'size desc'). The default value is 'title asc'.Order options will override shuffle if it is set to **true**. [More information on **Order**](https://craftcms.com/docs/templating/craft.assets#order)
+| limit     | 4                     |             | Number           | Limits number of images returned.
+| svg       | true                  | true        | Bool             | If true, SVG images will be extracted as HTML. When SVG's are used, only the 'wrap', 'limit', 'shuffle' settings will apply
+| wrap      | ['li div', 'pic-%i']  |             | String, Array    | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consist of up to 3 values in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
+| fallback  | true                  | true        | Bool, String     | See Below
+
+
+
 
 > **Fallback:**
 > If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory
