@@ -150,7 +150,7 @@ class images extends \Twig_Extension {
     // Fallback
     if ( isset($fallback) && $fallback ) {
 
-      $prefix : craft()->plugins->getPlugin('images')->getSettings()['prefix'];
+      $prefix = craft()->plugins->getPlugin('images')->getSettings()['prefix'];
 
       if ($image == false || !file_exists(getcwd().$imageUrl) ) {
         // Fallback handle will be suffixed to the default image name

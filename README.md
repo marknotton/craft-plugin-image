@@ -11,8 +11,8 @@ Images adds a small collection of filters to help manage reoccurring image queri
   - [Settings](#user-content-settings)
   - [Examples](#user-content-examples)
 - [Image information](#user-content-image-information)
-  - [Filters](#)
-  - [Examples](#)
+  - [Filters](#user-content-filters)
+  - [Examples](#user-content-examples-1)
 - [TODO:](#user-content-todo)
 
 
