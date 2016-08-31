@@ -4,6 +4,18 @@
 
 Images adds a small collection of filters to help manage reoccurring image queries.
 
+##Table of Contents
+
+- [After installation](#user-content-after-installation)
+- [Images](#user-content-images)
+  - [Settings](#user-content-settings)
+  - [Examples](#user-content-examples)
+- [Image information](#user-content-image-information)
+  - [Filters](#)
+  - [Examples](#)
+- [TODO:](#user-content-todo)
+
+
 ## After installation
 When this plugin is installed, an assets field type called "featured image" will be added to the default field types.
 
@@ -11,24 +23,7 @@ When this plugin is installed, an assets field type called "featured image" will
 
 This filter will query an asset field type and list out all the available image assets as per the settings.
 
-If you just want to get one single image, you can use "image" instead of "images". This essentially sets the 'url' option to 'true'.
-
-#### Usage
-When using the image filter on a entry, you must define the field type handle.
-```
-{{ entry|images('fieldHandle', transformType )}}
-{{ entry|images('fieldHandle', transformType, { settings... })}}
-{{ entry|images('fieldHandle', { settings... })}}
-```
-When using the images filter directly on an image field type, you do not need to pass the field type handle
-```
-{{ entry.gallery|images({ settings... })}}
-{{ entry.gallery|images('transformType')}}
-{{ entry.gallery|images(transformType, { settings... })}}
-```
-If the transform type is passed as a string, this will use a predefined [image transform](https://craftcms.com/docs/image-transforms). However, you can define an array of transforms settings directly too.
-
-#### Settings
+### Settings
 | Options   | Example               | Default     | Type             | Description
  ---------- | --------------------- | ----------- | ---------------- | ------------------
 | transform | thumb                 |             | String, Array    | Define an transform type.
@@ -47,9 +42,6 @@ If the transform type is passed as a string, this will use a predefined [image t
 | wrap      | ['li div', 'pic-%i']  |             | String, Array    | Requires the [wrapper plugin](https://github.com/marknotton/craft-plugin-wrapper). This should consist of up to 3 values in an array. [ tag, class *(optional)*, data-attribute *(optional)*]
 | fallback  | true                  | true        | Bool, String     | See Below
 
-
-
-
 > **Fallback:**
 > If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory
 > that is prefixed with *'default-'.* Example, if the field handle was
@@ -62,12 +54,28 @@ If the transform type is passed as a string, this will use a predefined [image t
 >
 > **False**, will not return any fallback and not load any image at all.
 
+If you just want to get one single image, you can use "image" instead of "images". This essentially sets the 'url' option to 'true'.
+
+When using the image filter on a entry, you must define the field type handle.
+```
+{{ entry|images('fieldHandle', transformType )}}
+{{ entry|images('fieldHandle', transformType, { settings... })}}
+{{ entry|images('fieldHandle', { settings... })}}
+```
+When using the images filter directly on an image field type, you do not need to pass the field type handle
+```
+{{ entry.gallery|images({ settings... })}}
+{{ entry.gallery|images('transformType')}}
+{{ entry.gallery|images(transformType, { settings... })}}
+```
+If the transform type is passed as a string, this will use a predefined [image transform](https://craftcms.com/docs/image-transforms). However, you can define an array of transforms settings directly too.
+
 ### Examples
-#### Basic Usage
+#### Example 1: Basic
 ```
 {{ entry.gallery|images }}
 ```
-#### Basic Output
+#### Example 1: Basic Output
 ```
 <img src="/assets/uploads/image1.jpg" alt="Image1">
 <img src="/assets/uploads/image2.jpg" alt="Image2">
@@ -75,16 +83,16 @@ If the transform type is passed as a string, this will use a predefined [image t
 <img src="/assets/uploads/image4.jpg" alt="Image4">
 ```
 
-#### Basic Single Image Usage
+#### Example 2: Single Image
 ```
 {{ entry.gallery|image }}
 ```
-#### Basic Single Image Output
+#### Example 2: Single Image Output
 ```
 /assets/uploads/image1.jpg
 ```
 
-####Advance Usage
+#### Example 3: Advance
 ```
 <ul>
 {{ entry.gallery|images(thumb, {
@@ -97,7 +105,7 @@ If the transform type is passed as a string, this will use a predefined [image t
 }) }}
 </ul>
 ```
-####Advance Output
+#### Example 3: Advance Output
 ```
 <ul>
   <li class="pic-1">
@@ -114,12 +122,13 @@ If the transform type is passed as a string, this will use a predefined [image t
 ----
 ## Image information
 
-You can grab useful information about an image file too.
+You can grab useful information about an image file.
 
-####Usage
 Image files being queried must be local in order for the data to be retrieved. The current working directory is automatically used if one isn't found. So no need for absolute paths.
 
-Also, if you have defined your image directory in your [environment variables](https://craftcms.com/docs/multi-environment-configs) config file; this will be queried first.
+Image directory settings in your [environment variables](https://craftcms.com/docs/multi-environment-configs) config file will be queried by default.
+
+### Filters
 
 | Filter      | Type    | Description
 | ----------- | ------- | ----------------
@@ -130,6 +139,8 @@ Also, if you have defined your image directory in your [environment variables](h
 | filesize    | String  | Image file size in it's relative format (b, kb, mb, gb)
 | orientation | String  | Compares width with height and returns portrait, landscape, or square.
 | ori         | String  | Same as "orientation"
+
+###Examples
 
 ```
 {{ ('logo.png')|imageinfo }}
@@ -144,4 +155,3 @@ Also, if you have defined your image directory in your [environment variables](h
 ##TODO:
 
 - Allow the customisation of the user's environment variables naming convention.
-- Allow the customisation of the fallback default prefix.

@@ -149,19 +149,22 @@ class images extends \Twig_Extension {
 
     // Fallback
     if ( isset($fallback) && $fallback ) {
+
+      $prefix : craft()->plugins->getPlugin('images')->getSettings()['prefix'];
+
       if ($image == false || !file_exists(getcwd().$imageUrl) ) {
         // Fallback handle will be suffixed to the default image name
         if (!is_string($fallback)) {
           $fallback = isset($transform) && is_string($transform) ? $transform : 'image';
         }
-        // Loop through the most common file formats and return any image that prefixed with 'default-' and matches the transform type
+        // Loop through the most common file formats and return any image that prefixed with 'default-' (or the bespoke settings) and matches the transform type
         foreach (['svg', 'png', 'jpg', 'gif'] as $format) {
-          $fallbackUrl = $this->imageDirectory.'/default-'.$fallback.'.'.$format;
+          $fallbackUrl = $this->imageDirectory.'/'.$prefix.$fallback.'.'.$format;
           if (file_exists(getcwd().$fallbackUrl)) {
             $imageUrl = $fallbackUrl;
             break;
           } else {
-            $imageUrl = $this->imageDirectory.'/default-'.$fallback.'.jpg';
+            $imageUrl = $this->imageDirectory.'/'.$prefix.$fallback.'.jpg';
           }
         }
       }

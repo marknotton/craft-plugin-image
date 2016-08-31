@@ -44,6 +44,18 @@ class ImagesPlugin extends BasePlugin {
     );
   }
 
+  public function getSettingsHtml() {
+    return craft()->templates->render('images/settings', array(
+      'settings' => $this->getSettings()
+    ));
+  }
+
+  protected function defineSettings() {
+    return array(
+      'prefix' => array(AttributeType::String, 'default' => 'default-'),
+    );
+  }
+
   public function onAfterInstall() {
 
     // Create Asset source
