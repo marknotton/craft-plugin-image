@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/hljNjeV.png" alt="Images" align="left" height="60" />
+<img src="http://i.imgur.com/0WdM6AZ.png" alt="Images" align="left" height="60" />
 
 # Images *for Craft CMS*
 
