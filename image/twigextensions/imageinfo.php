@@ -18,30 +18,26 @@ class imageinfo extends \Twig_Extension {
       'filesize'    => new Twig_Filter_Method( $this, 'filesize' ),
       'width'       => new Twig_Filter_Method( $this, 'width' ),
       'height'      => new Twig_Filter_Method( $this, 'height' ),
+      'tone'        => new Twig_Filter_Method( $this, 'tone' ),
       'format'      => new Twig_Filter_Method( $this, 'format' )
     );
   }
 
   // Get local image information
-  public function imageinfo() {
+  public function imageinfo($imageUrl) {
     // Atleast one string should be passed
     if ( func_num_args() < 1 ){
       return false;
     }
 
-    // The first argument is the string that is automatically passed.
-    $imageUrl = func_get_arg(0);
-
-    $settingsArgs = array_slice(func_get_args(), 1);
-
     // Check if file exists as normal
-    $newImageUrl = file_exists(getcwd().$imageUrl) ? getcwd().$imageUrl : null;
+    $newImageUrl = file_exists($this->systemPath.$imageUrl) ? $this->systemPath.$imageUrl : null;
 
     // Also check if the files exists even if the image directory wasn't concatonated to the string
-    $newImageUrl = file_exists(getcwd().$this->imageDirectory.'/'.$imageUrl) ? getcwd().$this->imageDirectory.'/'.$imageUrl : $newImageUrl;
+    $newImageUrl = file_exists($this->systemPath.$this->imageDirectory.'/'.$imageUrl) ? $this->systemPath.$this->imageDirectory.'/'.$imageUrl : $newImageUrl;
 
     // And similar to the previous check, do the same thing but ommit the forward slash, just incase it wasn't added.
-    $newImageUrl = file_exists(getcwd().$this->imageDirectory.$imageUrl) ? getcwd().$this->imageDirectory.$imageUrl : $newImageUrl;
+    $newImageUrl = file_exists($this->systemPath.$this->imageDirectory.$imageUrl) ? $this->systemPath.$this->imageDirectory.$imageUrl : $newImageUrl;
 
     if (!is_null($newImageUrl)) {
 
@@ -71,7 +67,12 @@ class imageinfo extends \Twig_Extension {
       if ($filesize == 0) {
         return('n/a');
       } else {
-        $filesize = (round($filesize/pow(1024, ($i = floor(log($filesize, 1024)))), 2) . array("bytes", "kb", "mb", "gb", "tb")[$i]);
+        $units = array("bytes", "kb", "mb", "gb", "tb");
+        $size = floor(log($filesize, 1024));
+        $exactSize = $filesize/pow(1024, $size);
+        $roundedSize = round($exactSize, 2);
+        $filesize = $roundedSize.$units[$size];
+        // $filesize = (round($filesize/pow(1024, ($i = floor(log($filesize, 1024)))), 2) . array("bytes", "kb", "mb", "gb", "tb")[$i]);
       }
 
       // Check orientation
@@ -104,43 +105,49 @@ class imageinfo extends \Twig_Extension {
   }
 
   // {{ 'logo.png')|width }}
-  public function width() {
-    return $this->imageinfo(func_get_arg(0))['width'];
+  public function width($file) {
+    return $this->imageinfo($file)['width'];
   }
 
   // {{ 'logo.png')|height }}
-  public function height() {
-    return $this->imageinfo(func_get_arg(0))['height'];
+  public function height($file) {
+    return $this->imageinfo($file)['height'];
   }
 
   // {{ 'logo.png')|format }}
-  public function format() {
-    return $this->imageinfo(func_get_arg(0))['format'];
+  public function format($file) {
+    return $this->imageinfo($file)['format'];
   }
 
   // {{ 'logo.png')|filesize }}
-  public function filesize() {
-    return $this->imageinfo(func_get_arg(0))['filesize'];
+  public function filesize($file) {
+    return $this->imageinfo($file)['filesize'];
+  }
+
+  // {{ 'logo.png')|filesize }}
+  public function tone($file, $samples=10) {
+    $imageTone = craft()->image_tone->tone($file, $samples);
+    if (is_bool($imageTone)) {
+      return $imageTone ? 'light' : 'dark';
+    }
   }
 
   // {{ 'logo.png')|ori }} or // {{ 'logo.png')|orientation }}
-  public function orientation() {
-    $orientation = $this->imageinfo(func_get_arg(0))['orientation'];
-    if (!empty(array_slice(func_get_args(), 1))) {
+  public function orientation($file) {
+    $orientation = $this->imageinfo($file)['orientation'];
+    if (!empty($file)) {
       return "data-orientation='".$orientation."'";
     } else {
       return $orientation;
     }
   }
 
-  public $imageDirectory = null;
-  public $allTransforms  = null;
-  public $transformKeys  = null;
+  private $imageDirectory = null;
+  private $systemPath = null;
 
-  public function __construct() {
-    $this->transformKeys = array_flip(['mode', 'position', 'quality', 'format']);
-    $this->allTransforms = craft()->assetTransforms->getAllTransforms();
-    $this->imageDirectory = (array_key_exists('images' ,craft()->config->get('environmentVariables')) ? craft()->config->get('environmentVariables')["images"] : "/assets/images");
+  public function init() {
+    $this->imageDirectory = craft()->image->imageDirectory;
+    $this->systemPath = craft()->image->systemPath;
   }
 
 

@@ -1,9 +1,9 @@
 <?php
 namespace Craft;
 
-class ImagesPlugin extends BasePlugin {
+class ImagePlugin extends BasePlugin {
   public function getName() {
-    return Craft::t('Images');
+    return Craft::t('Image');
   }
 
   public function getVersion() {
@@ -15,7 +15,7 @@ class ImagesPlugin extends BasePlugin {
   }
 
   public function getDescription() {
-    return 'Images adds a small collection of filters to help manage reoccurring image queries.';
+    return 'Image adds a small collection of filters to help manage reoccurring image queries.';
   }
 
   public function getDeveloper() {
@@ -27,16 +27,28 @@ class ImagesPlugin extends BasePlugin {
   }
 
   public function getDocumentationUrl() {
-    return 'https://github.com/marknotton/craft-plugin-images';
+    return 'https://github.com/marknotton/craft-plugin-image';
   }
 
   public function getReleaseFeedUrl() {
-    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-images/master/images/releases.json';
+    return 'https://raw.githubusercontent.com/marknotton/craft-plugin-image/master/image/releases.json';
+  }
+
+  public function getSettingsHtml() {
+    return craft()->templates->render('image/settings', array(
+      'settings' => $this->getSettings()
+    ));
+  }
+
+  protected function defineSettings() {
+    return array(
+      'imageDirectory' => array(AttributeType::String, 'default' => ''),
+    );
   }
 
   public function addTwigExtension() {
-    Craft::import('plugins.images.twigextensions.images');
-    Craft::import('plugins.images.twigextensions.imageinfo');
+    Craft::import('plugins.image.twigextensions.images');
+    Craft::import('plugins.image.twigextensions.imageinfo');
 
     return array(
       new images(),
@@ -44,30 +56,18 @@ class ImagesPlugin extends BasePlugin {
     );
   }
 
-  public function getSettingsHtml() {
-    return craft()->templates->render('images/settings', array(
-      'settings' => $this->getSettings()
-    ));
-  }
-
-  protected function defineSettings() {
-    return array(
-      'prefix' => array(AttributeType::String, 'default' => 'default-'),
-    );
-  }
-
   public function onAfterInstall() {
 
     // Create Asset source
     if (array_key_exists('systemPath' ,craft()->config->get('environmentVariables')) && array_key_exists('uploads', craft()->config->get('environmentVariables'))) {
-      ImagesPlugin::log('Creating the General Asset Source.');
+      ImagePlugin::log('Creating the General Asset Source.');
 
       $systemPath = craft()->config->get('environmentVariables')['systemPath'];
       $uploadsPath = craft()->config->get('environmentVariables')['uploads'];
 
       // Create the uploads directory if it doesn't exist
       if (!file_exists($systemPath.$uploadsPath)) {
-        ImagesPlugin::log('Uploads directory created');
+        ImagePlugin::log('Uploads directory created');
         mkdir($systemPath.$uploadsPath, 0777, true);
       }
     }
@@ -94,16 +94,16 @@ class ImagesPlugin extends BasePlugin {
       $source->setFieldLayout($fieldLayout);
 
       if (craft()->assetSources->saveSource($source)) {
-        ImagesPlugin::log('General asset source created');
+        ImagePlugin::log('General asset source created');
       } else {
-        ImagesPlugin::log('General asset source failed to be created', LogLevel::Warning);
+        ImagePlugin::log('General asset source failed to be created', LogLevel::Warning);
       }
     }
 
 
     // Create an assets field type for "featured images"
     if (is_null(craft()->fields->getFieldByHandle('featured'))) {
-      ImagesPlugin::log('Creating the Featured Image Field.');
+      ImagePlugin::log('Creating the Featured Image Field.');
 
       $featuredImage = new FieldModel();
       $featuredImage->groupId      = 1;
@@ -127,9 +127,9 @@ class ImagesPlugin extends BasePlugin {
                                 );
 
       if (craft()->fields->saveField($featuredImage)) {
-        ImagesPlugin::log('Featured Image field created successfully.');
+        ImagePlugin::log('Featured Image field created successfully.');
       } else {
-        ImagesPlugin::log('Could not save the Featured Image field.', LogLevel::Warning);
+        ImagePlugin::log('Could not save the Featured Image field.', LogLevel::Warning);
       }
     }
   }

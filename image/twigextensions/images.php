@@ -150,21 +150,26 @@ class images extends \Twig_Extension {
     // Fallback
     if ( isset($fallback) && $fallback ) {
 
-      $prefix = craft()->plugins->getPlugin('images')->getSettings()['prefix'];
-
-      if ($image == false || !file_exists(getcwd().$imageUrl) ) {
+      if ($image == false || !file_exists($this->systemPath.$imageUrl) ) {
         // Fallback handle will be suffixed to the default image name
         if (!is_string($fallback)) {
-          $fallback = isset($transform) && is_string($transform) ? $transform : 'image';
+          $fallback = isset($transform) && is_string($transform) ? $transform : 'default-image';
         }
-        // Loop through the most common file formats and return any image that prefixed with 'default-' (or the bespoke settings) and matches the transform type
-        foreach (['svg', 'png', 'jpg', 'gif'] as $format) {
-          $fallbackUrl = $this->imageDirectory.'/'.$prefix.$fallback.'.'.$format;
-          if (file_exists(getcwd().$fallbackUrl)) {
-            $imageUrl = $fallbackUrl;
-            break;
-          } else {
-            $imageUrl = $this->imageDirectory.'/'.$prefix.$fallback.'.jpg';
+
+        $fallbackExtensions = array('svg', 'png', 'jpg', 'jpeg', 'gif');
+
+        if (preg_match('/(\.jpg|\.png|\.bmp)$/i', strtolower($fallback))) {
+          // If fallback has an extension
+          $imageUrl = $this->imageDirectory.'/'.$fallback;
+        } else {
+          // If fallback doesn't have an extension, find one
+          // Loop through the most common file formats and return any image that prefixed with 'default-' (or the bespoke settings) and matches the transform type
+          foreach ($fallbackExtensions as $format) {
+            $fallbackUrl = $this->imageDirectory.'/'.$fallback.'.'.$format;
+            if (file_exists($this->systemPath.$fallbackUrl)) {
+              $imageUrl = $fallbackUrl;
+              break;
+            }
           }
         }
       }
@@ -174,11 +179,13 @@ class images extends \Twig_Extension {
       return $imageUrl;
     }
 
-    if (isset($svg) && $svg == true && (strlen($imageUrl) > 4 && substr($imageUrl, -4) == '.svg') && file_exists(getcwd().$imageUrl)) {
+
+
+    if (isset($svg) && $svg == true && (strlen($imageUrl) > 4 && substr($imageUrl, -4) == '.svg') && file_exists($this->systemPath.$imageUrl)) {
       // SVG's
       // TODO: Make it so, width, height, id, and class manipulate the inline SVG
 
-      $svgUrl = getcwd().$image->url;
+      $svgUrl = $this->systemPath.$image->url;
 
       if (file_exists($svgUrl)) {
 
@@ -212,6 +219,18 @@ class images extends \Twig_Extension {
           $output .= ' class="'.str_replace('%i', $count, $class).'"';
         }
 
+        // Tone
+        if (isset($tone)) {
+          if ( is_string($tone )) {
+            $imageTone = craft()->image_tone->tone($imageUrl, $tone);
+          } else {
+            $imageTone = craft()->image_tone->tone($imageUrl);
+          }
+          if (is_bool($imageTone)) {
+            $output .= ' data-tone="'.($imageTone ? 'light' : 'dark').'"';
+          }
+        }
+
         // Data attribute
         if (isset($data) && is_array($data)) {
           $value = strpos($data[1], '%id') !== false ? str_replace('%id', $image['id'], $data[1]) : $data[1];
@@ -227,7 +246,7 @@ class images extends \Twig_Extension {
 
         // Is size is 'true', attempt to add the appropraite width or height if otherwise not defined
         if (isset($size) && $size == true) {
-          $imageSize = getimagesize(getcwd().$imageUrl);
+          $imageSize = getimagesize($this->systemPath.$imageUrl);
           if (!isset($width)) {
             $width = $imageSize[0];
           }
@@ -356,14 +375,18 @@ class images extends \Twig_Extension {
     }
   }
 
-  public $imageDirectory = null;
-  public $allTransforms  = null;
-  public $transformKeys  = null;
+  private $imageDirectory = null;
+  private $systemPath = null;
+  // private $allTransforms  = null;
+  private $transformKeys  = null;
 
   public function __construct() {
     $this->transformKeys = array_flip(['mode', 'position', 'quality', 'format']);
-    $this->allTransforms = craft()->assetTransforms->getAllTransforms();
-    $this->imageDirectory = (array_key_exists('images' ,craft()->config->get('environmentVariables')) ? craft()->config->get('environmentVariables')["images"] : "/assets/images");
+    // $this->allTransforms = craft()->assetTransforms->getAllTransforms();
+    $this->imageDirectory = craft()->image->imageDirectory;
+    $this->systemPath = craft()->image->systemPath;
+
+
   }
 
 

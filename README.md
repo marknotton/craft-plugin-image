@@ -13,6 +13,7 @@ Images adds a small collection of filters to help manage reoccurring image queri
 - [Image information](#user-content-image-information)
   - [Filters](#user-content-filters)
   - [Examples](#user-content-examples-1)
+- [Tone](#tone)
 - [TODO:](#user-content-todo)
 
 
@@ -151,6 +152,24 @@ Image directory settings in your [environment variables](https://craftcms.com/do
 {{ ('logo.png')|orientation }}
 {{ ('logo.png')|ori }}
 ```
+
+## Tone
+
+Twig filter that checks the tone of a local image file. Returns ```dark``` if the image is dark, and ```light``` if the image is light.
+
+```
+{{ 'test.png'|tone }}
+```
+
+```
+{{ entry.gallery.first.url|tone }}
+```
+
+The filter will check your image directory settings in order to locate the file. If the file can't be found in the image directory, it will assume the path given is correct.
+
+### Coming soon
+
+Soon, you'll be able to define what portion of the image should checked for it's tone. Handy if you won't need to query to top half of an image, rather than the entire thing.
 
 ##TODO:
 
