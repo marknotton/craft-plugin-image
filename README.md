@@ -44,8 +44,7 @@ This filter will query an asset field type and list out all the available image 
 | fallback  | true                  | true        | Bool, String     | See Below
 
 > **Fallback:**
-> If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory
-> that is prefixed with *'default-'.* Example, if the field handle was
+> If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory. If one isn't found, a check will be made to look for a file prefixed with *'default-'.* Example, if the field handle was
 > '*featured*' this image will be used: '*default-featured.svg*'. All
 > image extensions will be searched in this order: svg, png, jpg, gif.
 > First file to exists wins.
