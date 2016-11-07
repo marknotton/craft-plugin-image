@@ -221,7 +221,7 @@ class images extends \Twig_Extension {
 
         // Tone
         if (isset($tone)) {
-          if ( is_string($tone )) {
+          if ( is_string($tone)) {
             $imageTone = craft()->image_tone->tone($imageUrl, $tone);
           } else {
             $imageTone = craft()->image_tone->tone($imageUrl);

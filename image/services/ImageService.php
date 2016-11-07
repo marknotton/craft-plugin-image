@@ -4,12 +4,14 @@ namespace Craft;
 class ImageService extends BaseApplicationComponent {
 
 	public $imageDirectory = null;
+	public $uploadsDirectory = null;
 	public $systemPath = null;
 
 	public function init() {
 
 		// Image Directory
-		$imageDirectorySettings = craft()->plugins->getPlugin('image')->getSettings()['imageDirectory'];
+		$directorySettings = craft()->plugins->getPlugin('image')->getSettings();
+		$imageDirectorySettings = $directorySettings['imageDirectory'];
 
 		if (!empty($imageDirectorySettings)) {
 			$imageDirectory = $imageDirectorySettings;
