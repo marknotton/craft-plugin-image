@@ -4,28 +4,29 @@ namespace Craft;
 class Image_ToneService extends BaseApplicationComponent {
 
   // Convert Hex to RGBA
-	public function tone($filename, $samples=10) {
+	public function tone($filename, $focus=false, $samples=10) {
 
 		$imageDirectory = craft()->image->imageDirectory;
 		$systemPath = craft()->image->systemPath;
 
 		if (isset($filename)) {
-			if (strpos($filename, $imageDirectory) !== false) {
-				$filepath = $systemPath.'/'.$filename;
-			} else {
-				$filepath = $systemPath.$imageDirectory.'/'.$filename;
+			if (file_exists($systemPath.$filename)) {
+				$filepath = $systemPath.$filename;
+				return $this->_get_image_brightness($filepath, $focus, $samples);
+			} else if (strpos($filename, $imageDirectory) !== false && file_exists($systemPath.$imageDirectory.$filename)) {
+				$filepath = $systemPath.$imageDirectory.$filename;
+				return $this->_get_image_brightness($filepath, $focus, $samples);
 			}
+		} else {
+			return null;
 		}
 
-		if ( file_exists($filepath) ) {
-			return $this->_get_image_brightness($filepath, $samples);
-		}
 	}
 
   // get average luminance, by sampling $samples times in both x,y directions
   // http://stackoverflow.com/a/5959461/843131
 
-  private function _get_image_brightness($filename, $samples=10) {
+  private function _get_image_brightness($filename, $focus=false, $samples=10) {
     $image = null;
 		$dev = false;
 
@@ -40,55 +41,52 @@ class Image_ToneService extends BaseApplicationComponent {
     }
 
 		// $focus = "top";
-		//
-		// 	switch ($focus) {
-		// 		case "top-left":
-		// 				$width  = imagesx($image)/2;
-		// 				$height = imagesy($image)/2;
-		// 				$stepX  = intval($width/$samples);
-		// 				$stepY  = intval($height/$samples);
-		// 			break;
-		// 		case "top":
-		// 				$width  = imagesx($image);
-		// 				$height = imagesy($image)/2;
-		// 				$stepX  = intval($width/$samples);
-		// 				$stepY  = intval($height/$samples);
-		// 			break;
-		// 		case "top-right":
-		//
-		// 			break;
-		// 		case "left":
-		// 			$width  = imagesx($image)/2;
-		// 			$height = imagesy($image);
-		// 			$stepX  = intval($width/$samples);
-		// 			$stepY  = intval($height/$samples);
-		// 			break;
-		// 		case "right":
-		//
-		// 			break;
-		// 		case "bottom-left":
-		// 			$width  = imagesx($image);
-		// 			$height = imagesy($image);
-		// 			$stepX  = intval($width/$samples*2);
-		// 			$stepY  = intval($height/$samples);
-		// 			break;
-		// 		case "bottom":
-		//
-		// 			break;
-		// 		case "bottom-right":
-		//
-		// 			break;
-		// 		default:
-		// 			$width  = imagesx($image);
-		// 			$height = imagesy($image);
-		// 			$stepX  = intval($width/$samples);
-		// 			$stepY  = intval($height/$samples);
-		// 	}
 
-		$width  = imagesx($image);
-		$height = imagesy($image);
-		$stepX  = intval($width/$samples);
-		$stepY  = intval($height/$samples);
+
+		switch ($focus) {
+			case "top-left":
+					$width  = imagesx($image)/2;
+					$height = imagesy($image)/2;
+					$stepX  = intval($width/$samples);
+					$stepY  = intval($height/$samples);
+				break;
+			case "top":
+					$width  = imagesx($image);
+					$height = imagesy($image)/2;
+					$stepX  = intval($width/$samples);
+					$stepY  = intval($height/$samples);
+				break;
+			case "top-right":
+
+				break;
+			case "left":
+				$width  = imagesx($image)/2;
+				$height = imagesy($image);
+				$stepX  = intval($width/$samples);
+				$stepY  = intval($height/$samples);
+				break;
+			case "right":
+
+				break;
+			case "bottom-left":
+				$width  = imagesx($image);
+				$height = imagesy($image);
+				$stepX  = intval($width/$samples*2);
+				$stepY  = intval($height/$samples);
+				break;
+			case "bottom":
+
+				break;
+			case "bottom-right":
+
+				break;
+			default:
+				$width  = imagesx($image);
+				$height = imagesy($image);
+				$stepX  = intval($width/$samples);
+				$stepY  = intval($height/$samples);
+		}
+
 
     $totalBrightness = 0;
 
@@ -128,6 +126,7 @@ class Image_ToneService extends BaseApplicationComponent {
 					$x = $x + $samples;
 				}
 			}
+			die;
 		}
 
     imagedestroy($image);

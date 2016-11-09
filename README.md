@@ -18,7 +18,7 @@ Images adds a small collection of filters to help manage reoccurring image queri
 
 
 ## After installation
-When this plugin is installed, an assets field type called "featured image" will be added to the default field types.
+When this plugin is installed, an assets field type called "featured image" will be added to the default field types. A 'General' asset source is added too, using data from your environmentVariables.
 
 ## Images
 
@@ -36,6 +36,7 @@ This filter will query an asset field type and list out all the available image 
 | width     | '100%'                |             | String, Number   | Set the width.
 | height    | 555                   |             | String, Number   | Set the height.
 | url       | false                 | false       | Bool             | Return a url or array of urls. By default, this is **true** when using the "image" filter.
+| tone      | 'top'                 | false       | Bool, String     | Perform a tone check on the image. Any of these strings: "top-left", "top", "top-right", "left", "right", "bottom-left", "bottom", "bottom-right", "all"; will check the colour tone in that given area of the image. True, adds the result as a data attribute.
 | shuffle   | false                 | false       | Bool             | Alias of order: ```'RAND()'```
 | order     | 'random'              | 'sortOrder' | String           | Possible values include ```'random'```, ```'title'```, ```'id'```, ```'sourceId'```, ```'folderId'```, ```'filename'```, ```'kind'```, ```'width'```, ```'height'```, ```'size'```, ```'dateCreated'```, ```'dateUpdated'```, ```'sortOrder'```. If you want the entries to be sorted in descending order, add “desc” after the property name (ex: 'size desc'). The default value is 'title asc'.Order options will override shuffle if it is set to **true**. [More information on **Order**](https://craftcms.com/docs/templating/craft.assets#order)
 | limit     | 4                     |             | Number           | Limits number of images returned.
@@ -44,9 +45,7 @@ This filter will query an asset field type and list out all the available image 
 | fallback  | true                  | true        | Bool, String     | See Below
 
 > **Fallback:**
-> If **true** and a fallback image is required, the field handle will be used to look for an image in the image directory. If one isn't found, a check will be made to look for a file prefixed with *'default-'.* Example, if the field handle was
-> '*featured*' this image will be used: '*default-featured.svg*'. All
-> image extensions will be searched in this order: svg, png, jpg, gif.
+> If **true** and a fallback image will be used should the given image not be found. The field handle will be used to look for an image in the image directory. > > If one isn't found, 'default-image' becomes the fallback, for the fallback. All image extensions will be searched in this order: svg, png, jpg, gif.
 > First file to exists wins.
 >
 > If a **string** is passed, that string will be used instead of the
@@ -164,12 +163,10 @@ Twig filter that checks the tone of a local image file. Returns ```dark``` if th
 {{ entry.gallery.first.url|tone }}
 ```
 
-The filter will check your image directory settings in order to locate the file. If the file can't be found in the image directory, it will assume the path given is correct.
-
 ### Coming soon
 
-Soon, you'll be able to define what portion of the image should checked for it's tone. Handy if you won't need to query to top half of an image, rather than the entire thing.
+Perform a tone check on a designated section of the image. Any of these strings: "top-left", "top", "top-right", "left", "right", "bottom-left", "bottom", "bottom-right", "all"; will check the colour tone in that given area of the image. Currently only "top-left", "top", "left", "bottom-left" are working.
 
-##TODO:
-
-- Allow the customisation of the user's environment variables naming convention.
+```
+{{ 'test.png'|tone('top-left') }}
+```

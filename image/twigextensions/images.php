@@ -221,7 +221,7 @@ class images extends \Twig_Extension {
 
         // Tone
         if (isset($tone)) {
-          if ( is_string($tone )) {
+          if ( is_string($tone)) {
             $imageTone = craft()->image_tone->tone($imageUrl, $tone);
           } else {
             $imageTone = craft()->image_tone->tone($imageUrl);
@@ -295,7 +295,7 @@ class images extends \Twig_Extension {
   }
 
   // {{ entry|image('featured', thumb )}} - Define the fieldtype handle and transform type
-  // {{ quick.content('gallery', 'home')|image(thumb) }} - No need to define the fieldtype handle, just the transform type
+  // {{ grab.content('gallery', 'home')|image(thumb) }} - No need to define the fieldtype handle, just the transform type
   public function image() {
     if ( func_num_args() < 1 ){
       return false;

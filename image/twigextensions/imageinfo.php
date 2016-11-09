@@ -124,7 +124,7 @@ class imageinfo extends \Twig_Extension {
     return $this->imageinfo($file)['filesize'];
   }
 
-  // {{ 'logo.png')|filesize }}
+  // {{ 'logo.png')|tone }}
   public function tone($file, $samples=10) {
     $imageTone = craft()->image_tone->tone($file, $samples);
     if (is_bool($imageTone)) {
