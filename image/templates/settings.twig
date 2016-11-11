@@ -1,7 +1,7 @@
 {% import "_includes/forms" as forms %}
-<h2>Images Directory</h2>
 {{ forms.textField({
-  label: "Enter the directory path for your images. If one isn't supplied we will attempt to use one defined in your 'environmentVariables' in your [General Config][1] file.
+  label: 'Images Directory',
+  instructions: "Enter the directory path for your images. If one isn't supplied we will attempt to use one defined in your 'environmentVariables' in your [General Config][1] file.
   [1]: https://craftcms.com/docs/config-settings"|markdown,
   id: 'imageDirectory',
   name: 'imageDirectory',
@@ -9,3 +9,15 @@
   value: settings.imageDirectory,
   errors: settings.getErrors('imageDirectory'),
 }) }}
+
+{% set locales = craft.i18n.getSiteLocaleIds()|length > 1 %}
+{% if locales %}
+  {{ forms.lightswitchField({
+    label : "Are Images relative to their locale directories?",
+    instructions: "If you store your images in individual locale directories; enabable this switch. If you store all of your assets in a single directory regardless of locale, disable this switch. Ensuring the right option is selected will allow the correct directories and files to be validated.",
+    id: 'relativeLocaleDirectories',
+    name: 'relativeLocaleDirectories',
+    errors: settings.getErrors('relativeLocaleDirectories'),
+    on: (settings.relativeLocaleDirectories is defined) ? settings.relativeLocaleDirectories : 0
+  }) }}
+{% endif %}

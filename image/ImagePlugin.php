@@ -43,6 +43,7 @@ class ImagePlugin extends BasePlugin {
   protected function defineSettings() {
     return array(
       'imageDirectory' => array(AttributeType::String, 'default' => ''),
+      'relativeLocaleDirectories' => array(AttributeType::Bool, 'default' => false)
     );
   }
 
@@ -62,7 +63,7 @@ class ImagePlugin extends BasePlugin {
     if (array_key_exists('systemPath' ,craft()->config->get('environmentVariables')) && array_key_exists('uploads', craft()->config->get('environmentVariables'))) {
       ImagePlugin::log('Creating the General Asset Source.');
 
-      $systemPath = craft()->config->get('environmentVariables')['systemPath'];
+      $systemPath = craft()->plugins->getPlugin('image')->getSettings()->relativeLocaleDirectories ? getcwd() : $_SERVER['DOCUMENT_ROOT'];
       $uploadsPath = craft()->config->get('environmentVariables')['uploads'];
 
       // Create the uploads directory if it doesn't exist
