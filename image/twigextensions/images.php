@@ -109,7 +109,7 @@ class images extends \Twig_Extension {
     $imagesFinal = array();
 
 
-    if (count($images) == 0) {
+    if (!isset($images) || count($images) == 0) {
       $images = array(false);
     }
 
