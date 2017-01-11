@@ -42,7 +42,6 @@ class Image_ToneService extends BaseApplicationComponent {
 
 		// $focus = "top";
 
-
 		switch ($focus) {
 			case "top-left":
 					$width  = imagesx($image)/2;

@@ -24,7 +24,11 @@ class ImageService extends BaseApplicationComponent {
 		$this->imageDirectory = rtrim($imageDirectory, '/');
 
 		// System path
-		$systemPath = craft()->plugins->getPlugin('image')->getSettings()->relativeLocaleDirectories ? getcwd() : $_SERVER['DOCUMENT_ROOT'];
+		if (array_key_exists('systemPath', craft()->config->get('environmentVariables'))) {
+			$systemPath = craft()->config->get('environmentVariables')["systemPath"];
+		} else {
+			$systemPath = getcwd();
+		}
 
 		$this->systemPath = $systemPath;
 
