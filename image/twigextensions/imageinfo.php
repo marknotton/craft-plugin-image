@@ -125,8 +125,8 @@ class imageinfo extends \Twig_Extension {
   }
 
   // {{ 'logo.png')|filesize }}
-  public function tone($file, $samples=10) {
-    $imageTone = craft()->image_tone->tone($file, $samples);
+  public function tone($file, $focus=false, $samples=10) {
+    $imageTone = craft()->image_tone->tone($file, $focus, $samples);
     if (is_bool($imageTone)) {
       return $imageTone ? 'light' : 'dark';
     }

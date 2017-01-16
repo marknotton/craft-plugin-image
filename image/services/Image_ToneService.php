@@ -8,7 +8,6 @@ class Image_ToneService extends BaseApplicationComponent {
 
 		$imageDirectory = craft()->image->imageDirectory;
 		$systemPath = craft()->image->systemPath;
-
 		if (isset($filename)) {
 			if (file_exists($systemPath.$filename)) {
 				$filepath = $systemPath.$filename;
