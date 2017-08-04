@@ -49,8 +49,10 @@ class ImagePlugin extends BasePlugin {
   public function addTwigExtension() {
     Craft::import('plugins.image.twigextensions.images');
     Craft::import('plugins.image.twigextensions.imageinfo');
+    Craft::import('plugins.image.twigextensions.transforms');
 
     return array(
+      new transforms(),
       new images(),
       new imageinfo()
     );

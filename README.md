@@ -4,7 +4,7 @@
 
 Images adds a small collection of filters to help manage reoccurring image queries.
 
-##Table of Contents
+## Table of Contents
 
 - [After installation](#user-content-after-installation)
 - [Images](#user-content-images)
@@ -14,6 +14,7 @@ Images adds a small collection of filters to help manage reoccurring image queri
   - [Filters](#user-content-filters)
   - [Examples](#user-content-examples-1)
 - [Tone](#tone)
+- [Transforms](#transforms)
 - [TODO:](#user-content-todo)
 
 
@@ -162,6 +163,21 @@ Twig filter that checks the tone of a local image file. Returns ```dark``` if th
 ```
 {{ entry.gallery.first.url|tone }}
 ```
+
+## transforms
+
+Not too dissimilar to what [RetconHTML](https://github.com/mmikkel/RetconHTML-Craft) achieves, this transform filter allows images added to a redactor rich text editor to have transforms to be added.
+
+Just pass in a string for the name of a transform type from set up in the CMS, or a transform type object instead. 
+
+```
+{{ entry.body|transforms('myTransform') }}
+```
+
+```
+{{ entry.body|transforms({ mode:'fit',  width:1080, height:1080, quality:80, position:'center-center' }) }}
+```
+
 
 ### Coming soon
 
