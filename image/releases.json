@@ -1,0 +1,11 @@
+[
+  {
+    "version": "0.1",
+    "downloadUrl": "https://github.com/marknotton/craft-plugin-images/archive/master.zip",
+    "date": "2016-07-25T10:00:00-08:00",
+    "notes": [
+        "# Big Stuff",
+        "[Added] This is the first instance of the plugin going live.",
+    ]
+  }
+]
